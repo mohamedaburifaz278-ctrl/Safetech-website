@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://safetech-rifaz.vercel.app/sitemap.xml
+Sitemap: https://website-three-phi-dxa0eoa0ea.vercel.app/sitemap.xml
