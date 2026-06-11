@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" role="img" aria-label="Safe Tech Solutions logo">
+  <defs>
+    <linearGradient id="stsG" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#22d3ee"/>
+      <stop offset="0.5" stop-color="#3b82f6"/>
+      <stop offset="1" stop-color="#7c3aed"/>
+    </linearGradient>
+  </defs>
+  <!-- Shield = "Safe" -->
+  <path d="M16 2 L28 6.5 V15 C28 23 22.5 27.5 16 30 C9.5 27.5 4 23 4 15 V6.5 Z" fill="url(#stsG)"/>
+  <!-- AI / circuit network = "Tech" -->
+  <g stroke="#ffffff" stroke-width="1.4" stroke-linecap="round">
+    <line x1="16" y1="10.5" x2="11" y2="17.5"/>
+    <line x1="16" y1="10.5" x2="21" y2="17.5"/>
+    <line x1="11" y1="17.5" x2="21" y2="17.5"/>
+  </g>
+  <g fill="#ffffff">
+    <circle cx="16" cy="10.5" r="2.3"/>
+    <circle cx="11" cy="17.5" r="2.3"/>
+    <circle cx="21" cy="17.5" r="2.3"/>
+  </g>
+</svg>
