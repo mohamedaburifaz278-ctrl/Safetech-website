@@ -138,6 +138,20 @@ strong{color:#fff}
 .contact-sub{text-align:center;color:var(--muted);margin-bottom:28px}
 .contact-links{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
 .contact-email{text-align:center;color:var(--muted);margin-top:22px;font-size:.95rem}
+.ig-card{
+  display:flex;align-items:center;gap:16px;max-width:420px;margin:30px auto 0;
+  padding:16px 22px;border-radius:16px;
+  background:linear-gradient(135deg,rgba(124,58,237,.18),rgba(34,211,238,.12));
+  border:1px solid var(--line);transition:transform .2s,border-color .2s
+}
+.ig-card:hover{transform:translateY(-3px);border-color:var(--brand2)}
+.ig-ico{font-size:1.8rem}
+.ig-text{display:flex;flex-direction:column;text-align:left}
+.ig-text strong{color:#fff;font-size:1.05rem}
+.ig-text small{color:var(--muted);font-size:.85rem}
+.footer-social{margin-bottom:10px}
+.footer-social a{color:var(--brand2)}
+.footer-social a:hover{color:#fff}
 
 /* ===== Footer ===== */
 .footer{text-align:center;padding:30px 6vw;border-top:1px solid var(--line);color:var(--muted);font-size:.9rem}
