@@ -45,6 +45,7 @@
     "image": "https://website-three-phi-dxa0eoa0ea.vercel.app/profile.jpg",
     "url": "https://website-three-phi-dxa0eoa0ea.vercel.app/",
     "email": "safetechsolutions087@gmail.com",
+    "telephone": "+91-97781-50230",
     "nationality": "Indian",
     "address": { "@type": "PostalAddress", "addressRegion": "Kerala", "addressCountry": "India" },
     "worksFor": { "@type": "Organization", "name": "Safe Tech Solutions" },
@@ -72,6 +73,7 @@
     "description": "Safe Tech Solutions builds AI & machine learning apps, automation, websites and software for businesses, students and clients worldwide.",
     "url": "https://website-three-phi-dxa0eoa0ea.vercel.app/",
     "email": "safetechsolutions087@gmail.com",
+    "telephone": "+91-97781-50230",
     "areaServed": "Worldwide",
     "sameAs": [
       "https://www.instagram.com/rifaz.safepath/",
@@ -81,9 +83,23 @@
   </script>
 
   <link rel="icon" type="image/svg+xml" href="logo.svg" />
+
+  <!-- ===== FONTS ===== -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+
+  <!-- Scroll progress + ambient background -->
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+  <div class="ambient" aria-hidden="true">
+    <span class="orb orb-1"></span>
+    <span class="orb orb-2"></span>
+    <span class="orb orb-3"></span>
+  </div>
 
   <!-- ===== NAVBAR ===== -->
   <header class="nav">
@@ -100,9 +116,15 @@
       </svg>
       <span class="logo-text">Safe<span>Tech</span> Solutions</span>
     </a>
-    <nav>
+
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="primaryNav">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav id="primaryNav">
       <a href="#about">About</a>
       <a href="#services">Services</a>
+      <a href="#process">Process</a>
       <a href="#projects">Projects</a>
       <a href="https://www.instagram.com/rifaz.safepath/" target="_blank" rel="noopener" title="Follow @rifaz.safepath on Instagram">Instagram</a>
       <a href="https://www.linkedin.com/in/safe-tech-solutions-b70ab7415/" target="_blank" rel="noopener" title="Connect on LinkedIn">LinkedIn</a>
@@ -112,39 +134,123 @@
 
   <!-- ===== HERO ===== -->
   <section id="home" class="hero">
-    <div class="hero-inner">
-      <img class="hero-photo" src="profile.jpg" width="150" height="150"
-           alt="Mohamed Abu Rifaz, AI/ML Engineer and Founder of Safe Tech Solutions" />
-      <p class="eyebrow">🤖 AI &amp; Machine Learning Engineer</p>
-      <h1>Mohamed Abu Rifaz</h1>
-      <h2>Founder of <strong>Safe Tech Solutions</strong></h2>
-      <p class="hero-sub">
-        I build intelligent software, AI applications, automation, websites and apps —
-        designed to be <strong>smart, safe and reliable.</strong>
-      </p>
-      <div class="badges">
-        <span>B.Tech ECE</span>
-        <span>NEBOSH Level 6</span>
-        <span>AI / ML</span>
-        <span>Ex-HSE, Cochin Shipyard</span>
+    <div class="hero-aurora" aria-hidden="true"></div>
+    <div class="hero-spotlight" id="heroSpotlight" aria-hidden="true"></div>
+    <div class="hero-grid">
+      <div class="hero-inner">
+        <img class="hero-photo" src="profile.jpg" width="150" height="150"
+             alt="Mohamed Abu Rifaz, AI/ML Engineer and Founder of Safe Tech Solutions" />
+        <p class="eyebrow">🤖 AI &amp; Machine Learning Engineer</p>
+        <h1>Mohamed Abu Rifaz</h1>
+        <h2>Founder of <strong>Safe Tech Solutions</strong></h2>
+        <p class="hero-sub">
+          I build intelligent software, AI applications, automation, websites and apps —
+          designed to be <strong>smart, safe and reliable.</strong>
+        </p>
+        <div class="badges">
+          <span>B.Tech ECE</span>
+          <span>NEBOSH Level 6</span>
+          <span>AI / ML</span>
+          <span>Ex-HSE, Cochin Shipyard</span>
+        </div>
+        <div class="hero-cta">
+          <a href="#contact" class="btn btn-primary">Work with me</a>
+          <a href="#projects" class="btn btn-ghost">See my work</a>
+        </div>
       </div>
-      <div class="hero-cta">
-        <a href="#contact" class="btn btn-primary">Work with me</a>
-        <a href="#projects" class="btn btn-ghost">See my work</a>
+
+      <!-- ===== ANIMATED AI DASHBOARD ===== -->
+      <div class="hero-visual" aria-hidden="true">
+        <div class="dash">
+          <div class="dash-head">
+            <span class="dash-title">
+              <svg width="16" height="16" viewBox="0 0 32 32"><path d="M16 2 L28 6.5 V15 C28 23 22.5 27.5 16 30 C9.5 27.5 4 23 4 15 V6.5 Z" fill="#22d3ee"/></svg>
+              Cardio AI · Risk Engine
+            </span>
+            <span class="dash-live"><i></i>LIVE</span>
+          </div>
+
+          <div class="dash-metrics">
+            <div class="metric">
+              <span class="metric-val" data-count="7">0</span>
+              <small>AI Agents</small>
+            </div>
+            <div class="metric">
+              <span class="metric-val" data-count="5">0</span>
+              <small>Risk Models</small>
+            </div>
+            <div class="metric">
+              <span class="metric-val" data-count="0.92" data-decimals="2">0</span>
+              <small>C-Statistic</small>
+            </div>
+          </div>
+
+          <div class="dash-chart-wrap">
+            <div class="dash-chart">
+              <div class="bar" style="--h:42%"></div>
+              <div class="bar" style="--h:68%"></div>
+              <div class="bar" style="--h:55%"></div>
+              <div class="bar" style="--h:82%"></div>
+              <div class="bar" style="--h:74%"></div>
+              <div class="bar" style="--h:95%"></div>
+              <div class="bar" style="--h:88%"></div>
+            </div>
+            <svg class="dash-line" viewBox="0 0 300 70" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="lineG" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0" stop-color="#22d3ee"/><stop offset="1" stop-color="#7c3aed"/>
+                </linearGradient>
+              </defs>
+              <polyline class="line-path" fill="none" stroke="url(#lineG)" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round"
+                points="0,55 50,40 100,46 150,22 200,30 250,12 300,18" />
+            </svg>
+          </div>
+
+          <div class="dash-foot">
+            <span class="dot-row"><i class="dot ok"></i> Model accuracy</span>
+            <span class="pct" data-count="94" data-suffix="%">0</span>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- ===== CREDIBILITY STRIP ===== -->
   <section class="stats">
-    <div class="stat"><strong>23k+</strong><span>Community Following</span></div>
+    <div class="stat"><strong class="metric-val" data-count="23" data-suffix="k+">0</strong><span>Community Following</span></div>
     <div class="stat"><strong>AI &amp; ML</strong><span>Solutions Delivered</span></div>
     <div class="stat"><strong>Global</strong><span>Clients Served</span></div>
     <div class="stat"><strong>B.Tech · NEBOSH L6</strong><span>Qualified Founder</span></div>
   </section>
 
+  <!-- ===== TECH MARQUEE ===== -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>Artificial Intelligence</span><span>•</span>
+      <span>Machine Learning</span><span>•</span>
+      <span>Python</span><span>•</span>
+      <span>AI Agents</span><span>•</span>
+      <span>Automation</span><span>•</span>
+      <span>Web Development</span><span>•</span>
+      <span>App Development</span><span>•</span>
+      <span>Predictive Models</span><span>•</span>
+      <span>Healthcare AI</span><span>•</span>
+      <!-- duplicate for seamless loop -->
+      <span>Artificial Intelligence</span><span>•</span>
+      <span>Machine Learning</span><span>•</span>
+      <span>Python</span><span>•</span>
+      <span>AI Agents</span><span>•</span>
+      <span>Automation</span><span>•</span>
+      <span>Web Development</span><span>•</span>
+      <span>App Development</span><span>•</span>
+      <span>Predictive Models</span><span>•</span>
+      <span>Healthcare AI</span><span>•</span>
+    </div>
+  </div>
+
   <!-- ===== ABOUT ===== -->
-  <section id="about" class="section">
+  <section id="about" class="section reveal">
     <h2 class="section-title">About Me</h2>
     <div class="about-grid">
       <div class="about-text">
@@ -171,9 +277,9 @@
   </section>
 
   <!-- ===== SERVICES ===== -->
-  <section id="services" class="section alt">
+  <section id="services" class="section alt reveal">
     <h2 class="section-title">What I Build</h2>
-    <div class="cards">
+    <div class="cards stagger">
       <div class="card">
         <div class="ico">🤖</div>
         <h3>AI &amp; Machine Learning</h3>
@@ -197,8 +303,36 @@
     </div>
   </section>
 
+  <!-- ===== PROCESS ===== -->
+  <section id="process" class="section reveal">
+    <h2 class="section-title">How I Work</h2>
+    <p class="section-sub">A clear, reliable process — so you always know what happens next.</p>
+    <div class="steps stagger">
+      <div class="step">
+        <span class="step-no">01</span>
+        <h3>Discover</h3>
+        <p>We talk through your goal, your users and the problem worth solving. No jargon.</p>
+      </div>
+      <div class="step">
+        <span class="step-no">02</span>
+        <h3>Design</h3>
+        <p>I plan the solution and share a clear scope, timeline and fixed quote before any work starts.</p>
+      </div>
+      <div class="step">
+        <span class="step-no">03</span>
+        <h3>Build</h3>
+        <p>I develop in focused steps and keep you updated — so there are no surprises along the way.</p>
+      </div>
+      <div class="step">
+        <span class="step-no">04</span>
+        <h3>Deliver</h3>
+        <p>I test, deploy and hand over a working product, with support to keep it running smoothly.</p>
+      </div>
+    </div>
+  </section>
+
   <!-- ===== PROJECTS ===== -->
-  <section id="projects" class="section">
+  <section id="projects" class="section alt reveal">
     <h2 class="section-title">Featured Project</h2>
     <article class="project">
       <div class="project-body">
@@ -225,15 +359,17 @@
   </section>
 
   <!-- ===== CONTACT ===== -->
-  <section id="contact" class="section alt">
+  <section id="contact" class="section alt reveal">
     <h2 class="section-title">Let's Build Something</h2>
     <p class="contact-sub">Have an idea, a project, or a problem AI could solve? Get in touch.</p>
     <div class="contact-links">
-      <a href="mailto:safetechsolutions087@gmail.com" class="btn btn-primary">📩 Email Me</a>
-      <a href="https://www.linkedin.com/in/safe-tech-solutions-b70ab7415/" target="_blank" rel="noopener" class="btn btn-ghost">💼 LinkedIn</a>
-      <a href="https://www.instagram.com/rifaz.safepath/" target="_blank" rel="noopener" class="btn btn-ghost">📸 Instagram</a>
+      <a href="https://wa.me/919778150230?text=Hi%20Rifaz%2C%20I%27d%20like%20to%20discuss%20a%20project." target="_blank" rel="noopener" class="btn btn-primary">💬 WhatsApp</a>
+      <a href="mailto:safetechsolutions087@gmail.com" class="btn btn-ghost">📩 Email Me</a>
+      <a href="tel:+919778150230" class="btn btn-ghost">📞 Call</a>
     </div>
-    <p class="contact-email">safetechsolutions087@gmail.com</p>
+    <p class="contact-email">
+      <a href="tel:+919778150230">+91 97781 50230</a> · safetechsolutions087@gmail.com
+    </p>
 
     <!-- Instagram follow card -->
     <a class="ig-card" href="https://www.instagram.com/rifaz.safepath/" target="_blank" rel="noopener">
@@ -250,11 +386,115 @@
       <a href="https://www.instagram.com/rifaz.safepath/" target="_blank" rel="noopener">📸 Instagram</a> ·
       <a href="https://www.linkedin.com/in/safe-tech-solutions-b70ab7415/" target="_blank" rel="noopener">💼 LinkedIn</a> ·
       <a href="https://github.com/mohamedaburifaz278-ctrl" target="_blank" rel="noopener">💻 GitHub</a> ·
+      <a href="https://wa.me/919778150230" target="_blank" rel="noopener">💬 WhatsApp</a> ·
+      <a href="tel:+919778150230">📞 +91 97781 50230</a> ·
       <a href="mailto:safetechsolutions087@gmail.com">📩 Email</a>
     </p>
     <p>© <span id="year"></span> Safe Tech Solutions · Mohamed Abu Rifaz · AI/ML Engineer</p>
   </footer>
 
-  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <script>
+    // Footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Mobile menu toggle
+    (function () {
+      var toggle = document.getElementById('navToggle');
+      var nav = document.getElementById('primaryNav');
+      if (toggle && nav) {
+        toggle.addEventListener('click', function () {
+          var open = nav.classList.toggle('open');
+          toggle.classList.toggle('active', open);
+          toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+          toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+        });
+        // Close after tapping a link
+        nav.querySelectorAll('a').forEach(function (a) {
+          a.addEventListener('click', function () {
+            nav.classList.remove('open');
+            toggle.classList.remove('active');
+            toggle.setAttribute('aria-expanded', 'false');
+            toggle.setAttribute('aria-label', 'Open menu');
+          });
+        });
+      }
+    })();
+
+    // Scroll-reveal animation
+    (function () {
+      var els = document.querySelectorAll('.reveal');
+      if (!('IntersectionObserver' in window)) {
+        els.forEach(function (el) { el.classList.add('visible'); });
+        return;
+      }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      els.forEach(function (el) { io.observe(el); });
+    })();
+
+    // Count-up animation for dashboard + stat numbers
+    (function () {
+      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      function animate(el) {
+        var target = parseFloat(el.getAttribute('data-count')) || 0;
+        var decimals = parseInt(el.getAttribute('data-decimals') || '0', 10);
+        var suffix = el.getAttribute('data-suffix') || '';
+        if (reduce) { el.textContent = target.toFixed(decimals) + suffix; return; }
+        var start = null, dur = 1400;
+        function tick(t) {
+          if (!start) start = t;
+          var p = Math.min((t - start) / dur, 1);
+          var eased = 1 - Math.pow(1 - p, 3); // easeOutCubic
+          el.textContent = (target * eased).toFixed(decimals) + suffix;
+          if (p < 1) requestAnimationFrame(tick);
+          else el.textContent = target.toFixed(decimals) + suffix;
+        }
+        requestAnimationFrame(tick);
+      }
+      var nums = document.querySelectorAll('.metric-val,.pct');
+      if (!('IntersectionObserver' in window)) { nums.forEach(animate); return; }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) { animate(entry.target); io.unobserve(entry.target); }
+        });
+      }, { threshold: 0.6 });
+      nums.forEach(function (n) { io.observe(n); });
+    })();
+
+    // Scroll progress bar
+    (function () {
+      var bar = document.getElementById('scrollProgress');
+      if (!bar) return;
+      function update() {
+        var h = document.documentElement;
+        var scrolled = h.scrollTop / (h.scrollHeight - h.clientHeight);
+        bar.style.transform = 'scaleX(' + (scrolled || 0) + ')';
+      }
+      window.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', update);
+      update();
+    })();
+
+    // Cursor spotlight in hero (desktop, pointer only)
+    (function () {
+      var spot = document.getElementById('heroSpotlight');
+      var hero = document.getElementById('home');
+      if (!spot || !hero) return;
+      if (!window.matchMedia || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+      hero.addEventListener('pointermove', function (e) {
+        var r = hero.getBoundingClientRect();
+        spot.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+        spot.style.setProperty('--my', (e.clientY - r.top) + 'px');
+        spot.style.opacity = '1';
+      });
+      hero.addEventListener('pointerleave', function () { spot.style.opacity = '0'; });
+    })();
+  </script>
 </body>
 </html>
