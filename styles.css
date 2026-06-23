@@ -286,6 +286,36 @@ a:focus-visible,button:focus-visible,.btn:focus-visible{
 
 /* ===== Contact ===== */
 .contact-sub{text-align:center;color:var(--muted);margin-bottom:28px}
+
+/* Contact form */
+.contact-form{
+  max-width:620px;margin:0 auto 30px;
+  background:linear-gradient(160deg,rgba(20,29,51,.7),rgba(15,22,38,.7));
+  border:1px solid var(--line);border-radius:20px;padding:30px;
+  display:flex;flex-direction:column;gap:18px;backdrop-filter:blur(6px)
+}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.field{display:flex;flex-direction:column;gap:7px}
+.field > span{font-size:.85rem;font-weight:600;color:var(--text);letter-spacing:.2px}
+.field input,.field textarea{
+  width:100%;font-family:var(--font-body);font-size:.95rem;color:var(--text);
+  background:rgba(10,14,26,.6);border:1px solid var(--line);border-radius:12px;
+  padding:13px 15px;transition:border-color .2s,box-shadow .2s;resize:vertical
+}
+.field input::placeholder,.field textarea::placeholder{color:#5f6f8c}
+.field input:focus,.field textarea:focus{
+  outline:none;border-color:var(--brand2);box-shadow:0 0 0 3px rgba(34,211,238,.15)
+}
+.form-submit{align-self:flex-start;border:none}
+.form-submit:disabled{opacity:.7;cursor:wait;transform:none}
+.form-status{font-size:.9rem;margin-top:2px;min-height:1.1em}
+.form-status.ok{color:#34d399}
+.form-status.err{color:#fb7185}
+.contact-or{text-align:center;color:var(--muted);font-size:.85rem;letter-spacing:.5px;margin-bottom:22px}
+@media(max-width:520px){
+  .form-row{grid-template-columns:1fr}
+  .contact-form{padding:22px}
+}
 .contact-links{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
 .contact-email{text-align:center;color:var(--muted);margin-top:22px;font-size:.95rem}
 .ig-card{
@@ -386,4 +416,100 @@ a:focus-visible,button:focus-visible,.btn:focus-visible{
 }
 @media(max-width:520px){
   .cards,.steps{grid-template-columns:1fr}
+}
+
+/* =====================================================================
+   ===============  PREMIUM ENHANCEMENTS  (layered on top)  ============
+   ===================================================================== */
+
+/* --- Animated nav underline --- */
+.nav nav a:not(.nav-cta){position:relative}
+.nav nav a:not(.nav-cta)::after{
+  content:"";position:absolute;left:0;bottom:-5px;height:2px;width:0;border-radius:2px;
+  background:linear-gradient(90deg,var(--brand2),var(--accent));transition:width .28s ease
+}
+.nav nav a:not(.nav-cta):hover::after{width:100%}
+.nav.scrolled{box-shadow:0 10px 30px rgba(0,0,0,.35)}
+
+/* --- Rotating specialties headline (typing caret) --- */
+.rotator{
+  display:inline-block;color:var(--brand2);font-weight:700;
+  border-right:2px solid var(--brand2);padding-right:3px;min-height:1em
+}
+.rotator.blink{animation:caret 1s step-end infinite}
+@keyframes caret{50%{border-color:transparent}}
+
+/* --- 3D tilt + cursor glow on interactive cards --- */
+.card,.step,.project,.dash{
+  transform-style:preserve-3d;will-change:transform;
+  transition:transform .25s cubic-bezier(.2,.7,.3,1),border-color .25s,box-shadow .3s
+}
+.tiltable{transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateY(var(--ty,0))}
+.card::after,.step::after,.project::after{
+  content:"";position:absolute;inset:0;border-radius:inherit;opacity:0;pointer-events:none;
+  transition:opacity .3s;z-index:0;
+  background:radial-gradient(220px circle at var(--mx,50%) var(--my,50%),rgba(34,211,238,.16),transparent 60%)
+}
+.card:hover::after,.step:hover::after,.project:hover::after{opacity:1}
+.card > *,.step > *,.project > *{position:relative;z-index:1}
+
+/* --- Magnetic buttons --- */
+.btn{will-change:transform}
+
+/* --- Animated section-title underline --- */
+.section-title{position:relative}
+.section-title::after{
+  content:"";display:block;height:3px;width:0;margin:16px auto 0;border-radius:3px;
+  background:linear-gradient(90deg,var(--brand2),var(--accent));transition:width .7s ease .15s
+}
+.reveal.visible .section-title::after{width:64px}
+
+/* --- Timeline dots --- */
+.timeline{position:relative}
+.timeline li{position:relative}
+.timeline li::before{
+  content:"";position:absolute;left:-29px;top:.55em;width:11px;height:11px;border-radius:50%;
+  background:var(--brand2);box-shadow:0 0 0 4px rgba(34,211,238,.16);transition:transform .2s
+}
+.timeline li:hover::before{transform:scale(1.35)}
+
+/* --- Badge hover pop --- */
+.badges span{transition:transform .2s ease,border-color .2s,color .2s,background .2s}
+.badges span:hover{transform:translateY(-3px);border-color:var(--brand2);color:#fff;background:rgba(34,211,238,.10)}
+
+/* --- Glowing, breathing profile photo --- */
+.hero-photo{animation:photoGlow 5s ease-in-out infinite}
+@keyframes photoGlow{
+  0%,100%{box-shadow:0 10px 30px rgba(34,211,238,.28);border-color:var(--brand2)}
+  50%{box-shadow:0 14px 46px rgba(124,58,237,.55);border-color:var(--accent)}
+}
+
+/* --- Stat strip hover --- */
+.stat{transition:background .25s}
+.stat:hover{background:#16213a}
+
+/* --- Tag hover --- */
+.tags span{transition:transform .18s,background .2s,color .2s}
+.tags span:hover{transform:translateY(-2px);background:rgba(34,211,238,.18);color:#fff}
+
+/* --- Floating back-to-top --- */
+.to-top{
+  position:fixed;right:22px;bottom:22px;width:48px;height:48px;border-radius:50%;
+  display:grid;place-items:center;border:1px solid var(--line);cursor:pointer;
+  background:linear-gradient(135deg,var(--brand),var(--accent));color:#fff;font-size:1.2rem;
+  opacity:0;transform:translateY(20px) scale(.85);pointer-events:none;z-index:60;
+  box-shadow:0 10px 28px rgba(59,130,246,.45);transition:opacity .3s,transform .3s
+}
+.to-top.show{opacity:1;transform:none;pointer-events:auto}
+.to-top:hover{transform:translateY(-3px) scale(1.05)}
+
+/* --- Page intro fade --- */
+@keyframes introFade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+body.loaded .nav{animation:introFade .6s ease both}
+
+@media(prefers-reduced-motion:reduce){
+  .hero-photo{animation:none}
+  .rotator.blink{animation:none;border-color:transparent}
+  .tiltable{transform:none}
+  body.loaded .nav{animation:none}
 }

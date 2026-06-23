@@ -140,7 +140,7 @@
       <div class="hero-inner">
         <img class="hero-photo" src="profile.jpg" width="150" height="150"
              alt="Mohamed Abu Rifaz, AI/ML Engineer and Founder of Safe Tech Solutions" />
-        <p class="eyebrow">🤖 AI &amp; Machine Learning Engineer</p>
+        <p class="eyebrow">🤖 <span class="rotator" id="rotator" data-words="AI &amp; Machine Learning Engineer|Automation Specialist|Web &amp; App Developer|AI Solutions Architect">AI &amp; Machine Learning Engineer</span></p>
         <h1>Mohamed Abu Rifaz</h1>
         <h2>Founder of <strong>Safe Tech Solutions</strong></h2>
         <p class="hero-sub">
@@ -362,6 +362,30 @@
   <section id="contact" class="section alt reveal">
     <h2 class="section-title">Let's Build Something</h2>
     <p class="contact-sub">Have an idea, a project, or a problem AI could solve? Get in touch.</p>
+
+    <!-- ===== CONTACT FORM (Formspree) ===== -->
+    <form class="contact-form" id="contactForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+      <input type="hidden" name="_subject" value="New enquiry from Safe Tech Solutions website" />
+      <div class="form-row">
+        <label class="field">
+          <span>Name</span>
+          <input type="text" name="name" placeholder="Your name" required />
+        </label>
+        <label class="field">
+          <span>Email</span>
+          <input type="email" name="email" placeholder="you@example.com" required />
+        </label>
+      </div>
+      <label class="field">
+        <span>What can I build for you?</span>
+        <textarea name="message" rows="4" placeholder="Tell me about your project, idea or problem…" required></textarea>
+      </label>
+      <button type="submit" class="btn btn-primary form-submit">Send message →</button>
+      <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+    </form>
+
+    <p class="contact-or">— or reach me directly —</p>
+
     <div class="contact-links">
       <a href="https://wa.me/919778150230?text=Hi%20Rifaz%2C%20I%27d%20like%20to%20discuss%20a%20project." target="_blank" rel="noopener" class="btn btn-primary">💬 WhatsApp</a>
       <a href="mailto:safetechsolutions087@gmail.com" class="btn btn-ghost">📩 Email Me</a>
@@ -392,6 +416,9 @@
     </p>
     <p>© <span id="year"></span> Safe Tech Solutions · Mohamed Abu Rifaz · AI/ML Engineer</p>
   </footer>
+
+  <!-- Floating back-to-top -->
+  <button id="toTop" class="to-top" aria-label="Back to top" title="Back to top">↑</button>
 
   <script>
     // Footer year
@@ -481,6 +508,44 @@
       update();
     })();
 
+    // Contact form (Formspree AJAX — inline success, no redirect)
+    (function () {
+      var form = document.getElementById('contactForm');
+      var status = document.getElementById('formStatus');
+      if (!form) return;
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (form.action.indexOf('YOUR_FORM_ID') !== -1) {
+          status.textContent = '⚠️ Form not connected yet — add your Formspree ID to go live.';
+          status.className = 'form-status err';
+          return;
+        }
+        var btn = form.querySelector('.form-submit');
+        var original = btn.textContent;
+        btn.disabled = true; btn.textContent = 'Sending…';
+        status.textContent = ''; status.className = 'form-status';
+        fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        }).then(function (res) {
+          if (res.ok) {
+            form.reset();
+            status.textContent = '✅ Thank you! Your message has been sent — I\'ll reply soon.';
+            status.className = 'form-status ok';
+          } else {
+            status.textContent = '⚠️ Something went wrong. Please WhatsApp or email me instead.';
+            status.className = 'form-status err';
+          }
+        }).catch(function () {
+          status.textContent = '⚠️ Network error. Please WhatsApp or email me instead.';
+          status.className = 'form-status err';
+        }).finally(function () {
+          btn.disabled = false; btn.textContent = original;
+        });
+      });
+    })();
+
     // Cursor spotlight in hero (desktop, pointer only)
     (function () {
       var spot = document.getElementById('heroSpotlight');
@@ -494,6 +559,96 @@
         spot.style.opacity = '1';
       });
       hero.addEventListener('pointerleave', function () { spot.style.opacity = '0'; });
+    })();
+
+    // ===== Premium enhancements =====
+    var REDUCE = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var FINE = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+    // Mark page as loaded (intro fade)
+    window.addEventListener('load', function () { document.body.classList.add('loaded'); });
+
+    // Rotating / typing headline
+    (function () {
+      var el = document.getElementById('rotator');
+      if (!el) return;
+      var words = (el.getAttribute('data-words') || '').split('|')
+        .map(function (w) { return w.replace(/&amp;/g, '&'); });
+      if (words.length < 2) { el.classList.add('blink'); return; }
+      el.classList.add('blink');
+      if (REDUCE) { return; } // keep first word, just show caret
+      var wi = 0, ci = words[0].length, deleting = true;
+      function tick() {
+        var word = words[wi];
+        el.textContent = word.slice(0, ci);
+        if (deleting) {
+          ci--;
+          if (ci <= 0) { deleting = false; wi = (wi + 1) % words.length; }
+          setTimeout(tick, 45);
+        } else {
+          ci++;
+          if (ci >= word.length) { deleting = true; setTimeout(tick, 1600); }
+          else setTimeout(tick, 70);
+        }
+      }
+      setTimeout(tick, 1800);
+    })();
+
+    // 3D tilt + cursor glow on cards
+    (function () {
+      if (REDUCE || !FINE) return;
+      var els = document.querySelectorAll('.card,.step,.project,.dash');
+      els.forEach(function (el) {
+        el.classList.add('tiltable');
+        el.addEventListener('pointermove', function (e) {
+          var r = el.getBoundingClientRect();
+          var px = (e.clientX - r.left) / r.width;
+          var py = (e.clientY - r.top) / r.height;
+          el.style.setProperty('--ry', ((px - 0.5) * 10).toFixed(2) + 'deg');
+          el.style.setProperty('--rx', ((0.5 - py) * 10).toFixed(2) + 'deg');
+          el.style.setProperty('--ty', '-6px');
+          el.style.setProperty('--mx', (px * 100).toFixed(1) + '%');
+          el.style.setProperty('--my', (py * 100).toFixed(1) + '%');
+        });
+        el.addEventListener('pointerleave', function () {
+          el.style.setProperty('--ry', '0deg');
+          el.style.setProperty('--rx', '0deg');
+          el.style.setProperty('--ty', '0px');
+        });
+      });
+    })();
+
+    // Magnetic buttons
+    (function () {
+      if (REDUCE || !FINE) return;
+      document.querySelectorAll('.btn').forEach(function (btn) {
+        btn.addEventListener('pointermove', function (e) {
+          var r = btn.getBoundingClientRect();
+          var mx = e.clientX - r.left - r.width / 2;
+          var my = e.clientY - r.top - r.height / 2;
+          btn.style.transform = 'translate(' + (mx * 0.25) + 'px,' + (my * 0.35 - 2) + 'px)';
+        });
+        btn.addEventListener('pointerleave', function () { btn.style.transform = ''; });
+      });
+    })();
+
+    // Back-to-top + nav shadow + orb parallax
+    (function () {
+      var toTop = document.getElementById('toTop');
+      var nav = document.querySelector('.nav');
+      var ambient = document.querySelector('.ambient');
+      function onScroll() {
+        var y = window.pageYOffset || document.documentElement.scrollTop;
+        if (toTop) toTop.classList.toggle('show', y > 600);
+        if (nav) nav.classList.toggle('scrolled', y > 30);
+        // parallax the whole ambient layer so individual orb drift animations are preserved
+        if (ambient && !REDUCE) ambient.style.transform = 'translateY(' + (y * 0.08) + 'px)';
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+      if (toTop) toTop.addEventListener('click', function () {
+        window.scrollTo({ top: 0, behavior: REDUCE ? 'auto' : 'smooth' });
+      });
     })();
   </script>
 </body>
