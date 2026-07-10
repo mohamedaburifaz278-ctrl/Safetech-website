@@ -846,6 +846,7 @@
     var loaded = false;
 
     function open() {
+      if (window.rvoiceClose) window.rvoiceClose();  // close the voice widget so they never overlap
       panel.classList.add('open');
       if (!loaded && RIFA_CHAT_URL) {
         var f = document.createElement('iframe');
@@ -859,6 +860,7 @@
       }
     }
     function close() { panel.classList.remove('open'); }
+    window.rifaChatClose = close;  // let the voice widget close us too
 
     fab.addEventListener('click', function () {
       panel.classList.contains('open') ? close() : open();
@@ -897,22 +899,31 @@
     var RVOICE_URL = 'https://rifa-voice.vercel.app';
     var fab = document.getElementById('rvoice-fab');
     var panel = document.getElementById('rvoice-panel');
-    var loaded = false;
+    var frame = null;
 
     function open() {
+      if (window.rifaChatClose) window.rifaChatClose();  // close the chat widget so they never overlap
       panel.classList.add('open');
-      if (!loaded) {
-        var f = document.createElement('iframe');
-        f.id = 'rvoice-frame';
-        // trusted first-party voice app: grant microphone + autoplay so speech works in-frame
-        f.setAttribute('allow', 'microphone; autoplay');
-        f.setAttribute('sandbox', 'allow-scripts allow-forms allow-popups allow-same-origin');
-        f.src = RVOICE_URL;
-        panel.appendChild(f);
-        loaded = true;
+      if (!frame) {
+        frame = document.createElement('iframe');
+        frame.id = 'rvoice-frame';
+        // trusted first-party voice app: grant microphone + autoplay so speech works in-frame.
+        // allow-same-origin is REQUIRED here — a sandboxed frame without it gets an opaque
+        // origin, which browsers refuse getUserMedia (mic) on, so voice would silently fail.
+        frame.setAttribute('allow', 'microphone; autoplay');
+        frame.setAttribute('sandbox', 'allow-scripts allow-forms allow-popups allow-same-origin');
+        frame.src = RVOICE_URL;
+        panel.appendChild(frame);
       }
     }
-    function close() { panel.classList.remove('open'); }
+    // Destroy the iframe on close so the mic + speech recognition fully stop.
+    // (Hiding it with display:none does NOT stop an in-progress mic session — the
+    //  browser would keep the mic light on with no visible UI.)
+    function close() {
+      panel.classList.remove('open');
+      if (frame) { frame.remove(); frame = null; }
+    }
+    window.rvoiceClose = close;  // let the chat widget close us too
 
     fab.addEventListener('click', function () {
       panel.classList.contains('open') ? close() : open();
