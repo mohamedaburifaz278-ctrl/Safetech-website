@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /*.bak-*
+Disallow: /index.html.bak*
 
-Sitemap: https://website-three-phi-dxa0eoa0ea.vercel.app/sitemap.xml
+Sitemap: https://safetech-rifaz.vercel.app/sitemap.xml

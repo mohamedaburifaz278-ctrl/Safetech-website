@@ -1,0 +1,7 @@
+# Old versions must never be publicly reachable.
+# One pre-rebrand backup was live and said "Safe Tech Solutions" 22 times.
+*.bak-*
+*.PREFIX-*
+index.html.bak*
+README.md
+deploy.sh
